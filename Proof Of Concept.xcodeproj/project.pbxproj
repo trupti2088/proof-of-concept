@@ -12,9 +12,11 @@
 		756EDFFB20F09081008E5B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 756EDFF920F09081008E5B01 /* LaunchScreen.storyboard */; };
 		756EE00620F09577008E5B01 /* CanadaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EE00520F09577008E5B01 /* CanadaTableViewController.swift */; };
 		756EE00820F095E6008E5B01 /* CanadaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EE00720F095E6008E5B01 /* CanadaTableViewCell.swift */; };
+		D2E3A0A26706D3CF05137338 /* Pods_Proof_Of_Concept.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFEF4A427D9B7877D7FDA6B /* Pods_Proof_Of_Concept.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		086764126B285BDC7428DE09 /* Pods-Proof Of Concept.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Proof Of Concept.release.xcconfig"; path = "Pods/Target Support Files/Pods-Proof Of Concept/Pods-Proof Of Concept.release.xcconfig"; sourceTree = "<group>"; };
 		756EDFED20F0907F008E5B01 /* Proof Of Concept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Proof Of Concept.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		756EDFF020F0907F008E5B01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		756EDFF720F09081008E5B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -22,6 +24,8 @@
 		756EDFFC20F09081008E5B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		756EE00520F09577008E5B01 /* CanadaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanadaTableViewController.swift; sourceTree = "<group>"; };
 		756EE00720F095E6008E5B01 /* CanadaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanadaTableViewCell.swift; sourceTree = "<group>"; };
+		9CFEF4A427D9B7877D7FDA6B /* Pods_Proof_Of_Concept.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Proof_Of_Concept.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E813C7C288A80DAA8371357C /* Pods-Proof Of Concept.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Proof Of Concept.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Proof Of Concept/Pods-Proof Of Concept.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2E3A0A26706D3CF05137338 /* Pods_Proof_Of_Concept.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7317FA39E25CC7E39B56889E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E813C7C288A80DAA8371357C /* Pods-Proof Of Concept.debug.xcconfig */,
+				086764126B285BDC7428DE09 /* Pods-Proof Of Concept.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		756EDFE420F0907E008E5B01 = {
 			isa = PBXGroup;
 			children = (
 				756EDFEF20F0907F008E5B01 /* Proof Of Concept */,
 				756EDFEE20F0907F008E5B01 /* Products */,
+				7317FA39E25CC7E39B56889E /* Pods */,
+				E862239F0335895640C87CF3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +88,14 @@
 			path = CanadaTableViewController;
 			sourceTree = "<group>";
 		};
+		E862239F0335895640C87CF3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9CFEF4A427D9B7877D7FDA6B /* Pods_Proof_Of_Concept.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -79,9 +103,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 756EDFFF20F09081008E5B01 /* Build configuration list for PBXNativeTarget "Proof Of Concept" */;
 			buildPhases = (
+				2B678067C24BA463E9CAE395 /* [CP] Check Pods Manifest.lock */,
 				756EDFE920F0907F008E5B01 /* Sources */,
 				756EDFEA20F0907F008E5B01 /* Frameworks */,
 				756EDFEB20F0907F008E5B01 /* Resources */,
+				CA625E7F80D052AF6CC3A283 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,6 +162,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B678067C24BA463E9CAE395 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Proof Of Concept-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA625E7F80D052AF6CC3A283 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Proof Of Concept/Pods-Proof Of Concept-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PureLayout/PureLayout.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PureLayout.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Proof Of Concept/Pods-Proof Of Concept-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		756EDFE920F0907F008E5B01 /* Sources */ = {
@@ -278,16 +343,14 @@
 		};
 		756EE00020F09081008E5B01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E813C7C288A80DAA8371357C /* Pods-Proof Of Concept.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D5HM6PWUBW;
 				INFOPLIST_FILE = "Proof Of Concept/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.telstra.com.Proof-Of-Concept";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -297,16 +360,14 @@
 		};
 		756EE00120F09081008E5B01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 086764126B285BDC7428DE09 /* Pods-Proof Of Concept.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D5HM6PWUBW;
 				INFOPLIST_FILE = "Proof Of Concept/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.telstra.com.Proof-Of-Concept";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
