@@ -53,8 +53,8 @@ class CanadaTableViewCell: UITableViewCell {
             
             imageViewItem.autoPinEdge(toSuperviewEdge: .leading, withInset: kLabelHorizontalInsets)
             imageViewItem.autoAlignAxis(.horizontal, toSameAxisOf: contentView)
-            imageViewItem.autoSetDimension(.height, toSize: 40)
-            imageViewItem.autoSetDimension(.width, toSize: 40)
+            imageViewItem.autoSetDimension(.height, toSize: CGFloat(Constants.thumbnailHeight))
+            imageViewItem.autoSetDimension(.width, toSize: CGFloat(Constants.thumbnailWidth))
             
             labelTitle.autoPinEdge(toSuperviewEdge: .top, withInset: kLabelVerticalInsets)
             labelTitle.autoPinEdge(toSuperviewEdge: .trailing, withInset: kLabelHorizontalInsets)

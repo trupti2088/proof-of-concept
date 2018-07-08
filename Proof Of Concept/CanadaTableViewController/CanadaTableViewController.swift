@@ -11,12 +11,18 @@ import UIKit
 class CanadaTableViewController: UITableViewController,DatModelProtocol  {
     func didFetchData(data: NSDictionary) {
         print("Reloading ...")
+        self.canadaDataSource = NSArray()
         self.canadaDataSource = data[Constants.rowsKey] as! NSArray
         self.navigationItem.title = data[Constants.titleKey] as? String
         self.tableView.reloadData()
+        if refresher.isRefreshing  {
+            refresher.endRefreshing()
+        }
     }
     
     var canadaDataSource: NSArray = []
+    var refresher: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,14 +40,35 @@ class CanadaTableViewController: UITableViewController,DatModelProtocol  {
         // it will only be called as cells are about to scroll onscreen. This is a major performance optimization.
         tableView.estimatedRowHeight = 80.0 // set this to whatever your "average" cell height is; it doesn't need to be very accurate
         
+        DataModel.sharedInstance().datModelProtocol = self
+
+        // set refresh control
+        refresher = UIRefreshControl()
+        tableView.addSubview(refresher)
+        refresher.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresher.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
         // fetch data except for real images.
         self.downloaData()
 
     }
 
-    func downloaData(){
-        DataModel.sharedInstance().datModelProtocol = self
-        self.canadaDataSource = DataModel.sharedInstance().fetchData()
+    @objc func downloaData(){
+        if Constants.sharedInstance.connectedToNetwork() {
+            self.canadaDataSource = DataModel.sharedInstance().fetchData()
+        }else {
+            if self.refresher.isRefreshing {
+                self.refresher.endRefreshing()
+            }
+            let alert = UIAlertController(title: "Internet connectivity", message: "There is no internet. Please check your internet connection", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+
+        }
+    }
+    
+    @objc func refreshData(){
+        self.downloaData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,51 +90,54 @@ class CanadaTableViewController: UITableViewController,DatModelProtocol  {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let canadaTableViewCell = CanadaTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellIdentifier")
-        
-        let currentItem = canadaDataSource[indexPath.row] as! NSDictionary
-        if ((currentItem[Constants.labelTitle] as? String) != nil){
-            canadaTableViewCell.labelTitle.text = (currentItem[Constants.labelTitle] as! String)
-        }else {
-            canadaTableViewCell.labelTitle.text = "No title"
-        }
-        
-        if ((currentItem[Constants.labelDescription] as? String) != nil){
-            canadaTableViewCell.labelDescription.text = currentItem[Constants.labelDescription] as? String
-        }else {
-            canadaTableViewCell.labelDescription.text = "No description"
-        }
 
-        canadaTableViewCell.setNeedsUpdateConstraints()
-        canadaTableViewCell.updateConstraintsIfNeeded()
-        
-        // check if image string is present in the current item dictionary
-        if let imageString = currentItem["imageHref"] as? String {
-            // URL is present
-            guard let url = URL(string: (currentItem["imageHref"] as? String)!)
-                else {
-                    return canadaTableViewCell
+        if !refresher.isRefreshing {
+            
+            let currentItem = canadaDataSource[indexPath.row] as! NSDictionary
+            if ((currentItem[Constants.labelTitle] as? String) != nil){
+                canadaTableViewCell.labelTitle.text = (currentItem[Constants.labelTitle] as! String)
+            }else {
+                canadaTableViewCell.labelTitle.text = "No title"
             }
             
-            // fetch image in the background
-            DispatchQueue.global(qos: .background).async {
-                guard let data = try? Data(contentsOf: url)else {
-                    return
+            if ((currentItem[Constants.labelDescription] as? String) != nil){
+                canadaTableViewCell.labelDescription.text = currentItem[Constants.labelDescription] as? String
+            }else {
+                canadaTableViewCell.labelDescription.text = "No description"
+            }
+            
+            canadaTableViewCell.setNeedsUpdateConstraints()
+            canadaTableViewCell.updateConstraintsIfNeeded()
+            
+            // check if image string is present in the current item dictionary
+            if let imageString = currentItem[Constants.imageKey] as? String {
+                // URL is present
+                guard let url = URL(string: imageString)
+                    else {
+                        return canadaTableViewCell
                 }
                 
-                // set image if it is converted from data
-                guard let image : UIImage = UIImage(data: data) else {
-                    return
+                // fetch image in the background
+                DispatchQueue.global(qos: .background).async {
+                    guard let data = try? Data(contentsOf: url)else {
+                        return
+                    }
+                    
+                    // set image if it is converted from data
+                    guard let image : UIImage = UIImage(data: data) else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        // assign image to the image view on the main thread
+                        canadaTableViewCell.imageViewItem.image = image
+                    }
                 }
-                DispatchQueue.main.async {
-                    // assign image to the image view on the main thread
-                    canadaTableViewCell.imageViewItem.image = image
-                }
+            }else {
+                print("NULL")
+                // URL is nil
             }
-        }else {
-            print("NULL")
-            // URL is nil
+
         }
         return canadaTableViewCell
     }
