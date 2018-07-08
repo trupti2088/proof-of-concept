@@ -31,11 +31,13 @@ class CanadaTableViewCell: UITableViewCell {
         
         labelTitle = UILabel()
         labelTitle.textColor = UIColor.black
+        labelTitle.font = UIFont.init(name: "Helvetica-bold", size: 15)
         labelTitle.numberOfLines = 1
         contentView.addSubview(labelTitle)
         
         labelDescription = UILabel()
         labelDescription.textColor = UIColor.black
+        labelDescription.font = UIFont.init(name: "Helvetica-light", size: 15)
         labelDescription.numberOfLines = 0
         contentView.addSubview(labelDescription)
     }

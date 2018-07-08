@@ -16,6 +16,7 @@ static let sharedInstance = Constants()
     static let labelTitle = "title"
     static let labelDescription = "description"
     static let rowsKey = "rows"
+    static let titleKey = "title"
 }
 
 

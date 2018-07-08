@@ -1,4 +1,4 @@
-//
+        //
 //  DataModel.swift
 //  Proof Of Concept
 //
@@ -12,56 +12,60 @@ protocol DatModelProtocol {
     func didFetchData(data: NSDictionary)
 }
 
-class DataModel: NSObject {
-    
-    var datModelProtocol: DatModelProtocol?
-    private static var dataModelSharedInstance: DataModel = {
-        let dataModelSharedInstance = DataModel()
-        // Configuration
-        // ...
-        return dataModelSharedInstance
-    }()
-    
-    // MARK: - Accessors
-    class func sharedInstance() -> DataModel {
-        return dataModelSharedInstance
-    }
-    
-    // MARK: - data model methods
-    func fetchData() -> NSArray {
-        var dataArray: NSArray = []
-        var dataDictionary: NSDictionary = NSDictionary()
-        
-        DispatchQueue.global(qos: .background).async {
-            //let img2 = Downloader.downloadImageWithURL(imageURLs[1])
-            let url = URL(string: Constants.baseURL)
+        class DataModel: NSObject {
             
-            do{
-                let data = try? Data(contentsOf: url!)
+            var datModelProtocol: DatModelProtocol?
+            private static var dataModelSharedInstance: DataModel = {
+                let dataModelSharedInstance = DataModel()
+                // Configuration
+                // ...
+                return dataModelSharedInstance
+            }()
+            
+            // MARK: - Accessors
+            class func sharedInstance() -> DataModel {
+                return dataModelSharedInstance
+            }
+            
+            // MARK: - data model methods
+            func fetchData() -> NSArray {
+                var dataArray: NSArray = []
+                var dataDictionary: NSDictionary = NSDictionary()
                 
-                let responseStrInISOLatin = String(data: data!, encoding: String.Encoding.isoLatin1)
-                guard let modifiedDataInUTF8Format = responseStrInISOLatin?.data(using: String.Encoding.utf8) else {
-                    print("could not convert data to UTF-8 format")
-                    return
+                // fetch data in the background
+                DispatchQueue.global(qos: .background).async {
+                    guard let url = URL(string: Constants.baseURL) else {
+                        return
+                    }
+                    
+                    do{
+                        guard let data = try? Data(contentsOf: url) else{
+                            return
+                        }
+                        
+                        let responseStrInISOLatin = String(data: data, encoding: String.Encoding.isoLatin1)
+                        guard let modifiedDataInUTF8Format = responseStrInISOLatin?.data(using: String.Encoding.utf8) else {
+                            print("could not convert data to UTF-8 format")
+                            return
+                        }
+                        do {
+                            // take data under "row" key which is the array for the table
+                            let responseJSONDict = try JSONSerialization.jsonObject(with: modifiedDataInUTF8Format) as! NSDictionary
+                            dataArray = responseJSONDict[Constants.rowsKey] as! NSArray
+                            
+                            // this is the entire response dict including "title"
+                            dataDictionary = responseJSONDict
+                        } catch {
+                            print(error)
+                        }
+                        
+                        // Background Thread
+                        DispatchQueue.main.async {
+                            // Run UI Updates
+                            self.datModelProtocol?.didFetchData(data: dataDictionary)
+                        }
+                    }
                 }
-                do {
-                    //https://stackoverflow.com/questions/14321033/ios-nsjsonserialization-unable-to-convert-data-to-string-around-character/35338296
-                    let responseJSONDict = try JSONSerialization.jsonObject(with: modifiedDataInUTF8Format) as! NSDictionary
-                    dataArray = responseJSONDict["rows"] as! NSArray
-                    dataDictionary = responseJSONDict
-                } catch {
-                    print(error)
-                }
-                
-            // Background Thread
-            DispatchQueue.main.async {
-                // Run UI Updates
-                self.datModelProtocol?.didFetchData(data: dataDictionary)
+                return dataArray
             }
         }
-    }
-        return dataArray
-
-}
-
-}

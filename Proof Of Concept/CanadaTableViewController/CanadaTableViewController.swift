@@ -12,6 +12,7 @@ class CanadaTableViewController: UITableViewController,DatModelProtocol  {
     func didFetchData(data: NSDictionary) {
         print("Reloading ...")
         self.canadaDataSource = data[Constants.rowsKey] as! NSArray
+        self.navigationItem.title = data[Constants.titleKey] as? String
         self.tableView.reloadData()
     }
     
@@ -66,13 +67,48 @@ class CanadaTableViewController: UITableViewController,DatModelProtocol  {
         let canadaTableViewCell = CanadaTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellIdentifier")
         
         let currentItem = canadaDataSource[indexPath.row] as! NSDictionary
-        canadaTableViewCell.labelTitle.text = currentItem[Constants.labelTitle] as? String
-        canadaTableViewCell.labelDescription.text = currentItem[Constants.labelDescription] as? String
+        if ((currentItem[Constants.labelTitle] as? String) != nil){
+            canadaTableViewCell.labelTitle.text = (currentItem[Constants.labelTitle] as! String)
+        }else {
+            canadaTableViewCell.labelTitle.text = "No title"
+        }
         
-        // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+        if ((currentItem[Constants.labelDescription] as? String) != nil){
+            canadaTableViewCell.labelDescription.text = currentItem[Constants.labelDescription] as? String
+        }else {
+            canadaTableViewCell.labelDescription.text = "No description"
+        }
+
         canadaTableViewCell.setNeedsUpdateConstraints()
         canadaTableViewCell.updateConstraintsIfNeeded()
         
+        // check if image string is present in the current item dictionary
+        if let imageString = currentItem["imageHref"] as? String {
+            // URL is present
+            guard let url = URL(string: (currentItem["imageHref"] as? String)!)
+                else {
+                    return canadaTableViewCell
+            }
+            
+            // fetch image in the background
+            DispatchQueue.global(qos: .background).async {
+                guard let data = try? Data(contentsOf: url)else {
+                    return
+                }
+                
+                // set image if it is converted from data
+                guard let image : UIImage = UIImage(data: data) else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    // assign image to the image view on the main thread
+                    canadaTableViewCell.imageViewItem.image = image
+                }
+            }
+        }else {
+            print("NULL")
+            // URL is nil
+        }
         return canadaTableViewCell
     }
     
