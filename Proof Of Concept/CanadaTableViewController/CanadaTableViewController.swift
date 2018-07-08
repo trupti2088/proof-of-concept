@@ -8,9 +8,14 @@
 
 import UIKit
 
-class CanadaTableViewController: UITableViewController {
-
-    let dataSource = ["data 1", "data 2", "data 3", "data 4", "data 5"]
+class CanadaTableViewController: UITableViewController,DatModelProtocol  {
+    func didFetchData(data: NSDictionary) {
+        print("Reloading ...")
+        self.canadaDataSource = data[Constants.rowsKey] as! NSArray
+        self.tableView.reloadData()
+    }
+    
+    var canadaDataSource: NSArray = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,9 +32,17 @@ class CanadaTableViewController: UITableViewController {
         // Setting the estimated row height prevents the table view from calling tableView:heightForRowAtIndexPath: for every row in the table on first load;
         // it will only be called as cells are about to scroll onscreen. This is a major performance optimization.
         tableView.estimatedRowHeight = 80.0 // set this to whatever your "average" cell height is; it doesn't need to be very accurate
+        
+        // fetch data except for real images.
+        self.downloaData()
 
     }
 
+    func downloaData(){
+        DataModel.sharedInstance().datModelProtocol = self
+        self.canadaDataSource = DataModel.sharedInstance().fetchData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,20 +57,22 @@ class CanadaTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return dataSource.count
+        return canadaDataSource.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let canadaTableViewCell = CanadaTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cellIdentifier")
-        canadaTableViewCell.labelTitle.text = dataSource[indexPath.row]
-        canadaTableViewCell.labelDescription.text = dataSource[indexPath.row]
+        
+        let currentItem = canadaDataSource[indexPath.row] as! NSDictionary
+        canadaTableViewCell.labelTitle.text = currentItem[Constants.labelTitle] as? String
+        canadaTableViewCell.labelDescription.text = currentItem[Constants.labelDescription] as? String
         
         // Make sure the constraints have been added to this cell, since it may have just been created from scratch
         canadaTableViewCell.setNeedsUpdateConstraints()
         canadaTableViewCell.updateConstraintsIfNeeded()
-
+        
         return canadaTableViewCell
     }
     

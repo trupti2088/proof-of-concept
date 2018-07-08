@@ -12,6 +12,8 @@
 		756EDFFB20F09081008E5B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 756EDFF920F09081008E5B01 /* LaunchScreen.storyboard */; };
 		756EE00620F09577008E5B01 /* CanadaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EE00520F09577008E5B01 /* CanadaTableViewController.swift */; };
 		756EE00820F095E6008E5B01 /* CanadaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 756EE00720F095E6008E5B01 /* CanadaTableViewCell.swift */; };
+		75E3FC1D20F1EC3C00F92A3D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E3FC1C20F1EC3C00F92A3D /* DataModel.swift */; };
+		75E3FC1F20F1EE0E00F92A3D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E3FC1E20F1EE0E00F92A3D /* Constants.swift */; };
 		D2E3A0A26706D3CF05137338 /* Pods_Proof_Of_Concept.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFEF4A427D9B7877D7FDA6B /* Pods_Proof_Of_Concept.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +26,8 @@
 		756EDFFC20F09081008E5B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		756EE00520F09577008E5B01 /* CanadaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanadaTableViewController.swift; sourceTree = "<group>"; };
 		756EE00720F095E6008E5B01 /* CanadaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanadaTableViewCell.swift; sourceTree = "<group>"; };
+		75E3FC1C20F1EC3C00F92A3D /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		75E3FC1E20F1EE0E00F92A3D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9CFEF4A427D9B7877D7FDA6B /* Pods_Proof_Of_Concept.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Proof_Of_Concept.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E813C7C288A80DAA8371357C /* Pods-Proof Of Concept.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Proof Of Concept.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Proof Of Concept/Pods-Proof Of Concept.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				756EDFF020F0907F008E5B01 /* AppDelegate.swift */,
+				75E3FC1B20F1EC3C00F92A3D /* DataModelsAndConstants */,
 				756EE00420F09577008E5B01 /* CanadaTableViewController */,
 				756EDFF720F09081008E5B01 /* Assets.xcassets */,
 				756EDFF920F09081008E5B01 /* LaunchScreen.storyboard */,
@@ -86,6 +91,15 @@
 				756EE00720F095E6008E5B01 /* CanadaTableViewCell.swift */,
 			);
 			path = CanadaTableViewController;
+			sourceTree = "<group>";
+		};
+		75E3FC1B20F1EC3C00F92A3D /* DataModelsAndConstants */ = {
+			isa = PBXGroup;
+			children = (
+				75E3FC1C20F1EC3C00F92A3D /* DataModel.swift */,
+				75E3FC1E20F1EE0E00F92A3D /* Constants.swift */,
+			);
+			path = DataModelsAndConstants;
 			sourceTree = "<group>";
 		};
 		E862239F0335895640C87CF3 /* Frameworks */ = {
@@ -207,7 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75E3FC1F20F1EE0E00F92A3D /* Constants.swift in Sources */,
 				756EDFF120F0907F008E5B01 /* AppDelegate.swift in Sources */,
+				75E3FC1D20F1EC3C00F92A3D /* DataModel.swift in Sources */,
 				756EE00820F095E6008E5B01 /* CanadaTableViewCell.swift in Sources */,
 				756EE00620F09577008E5B01 /* CanadaTableViewController.swift in Sources */,
 			);
@@ -350,7 +366,10 @@
 				DEVELOPMENT_TEAM = D5HM6PWUBW;
 				INFOPLIST_FILE = "Proof Of Concept/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.telstra.com.Proof-Of-Concept";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -367,7 +386,10 @@
 				DEVELOPMENT_TEAM = D5HM6PWUBW;
 				INFOPLIST_FILE = "Proof Of Concept/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.telstra.com.Proof-Of-Concept";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
